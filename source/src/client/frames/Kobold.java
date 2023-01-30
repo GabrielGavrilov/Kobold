@@ -16,7 +16,7 @@ public class Kobold extends JFrame {
 
     public Kobold() {
         this.setLayout(new BorderLayout());
-        this.setSize(500, 500);
+        this.setSize(600, 600);
         this.setTitle("Kobold IDE");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
