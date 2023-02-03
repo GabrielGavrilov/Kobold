@@ -20,7 +20,7 @@ public class Lines extends JPanel {
     public Lines() {
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(50, 500));
-        this.setBackground(new Color(48,56,65,255));
+        this.setBackground(new Color(30,30,30,255));
 
         try {
             DejaVu = Font.createFont(Font.PLAIN, new File("src/fonts/DejaVuSansMono.ttf")).deriveFont(15f);

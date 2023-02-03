@@ -40,7 +40,7 @@ public class Editor extends JPanel {
         editorBox = new JTextPane(syntax.styleDocument);
         editorBox.setBounds(50, 0, 450, 500);
         editorBox.setFont(DejaVu);
-        editorBox.setBackground(new Color(48,56,65,255));
+        editorBox.setBackground(new Color(30,30,30,255));
         editorBox.setForeground(new Color(203,216,228,255));
         editorBox.setMargin(new Insets(3, 5, 0, 0));
         editorBox.setCaretColor(Color.WHITE);
