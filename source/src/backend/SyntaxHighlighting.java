@@ -9,18 +9,6 @@ import java.util.regex.Pattern;
 
 public class SyntaxHighlighting {
 
-    String[] blueSyntax = {
-            "int", "char"
-    };
-
-    String[] greenSyntax = {
-            "std"
-    };
-
-    String[] pinkSyntax = {
-            "return"
-    };
-
     public static StyleContext context = StyleContext.getDefaultStyleContext();
     public static AttributeSet blueAttribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
     public static AttributeSet greenAttribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
@@ -42,23 +30,31 @@ public class SyntaxHighlighting {
             while(wordRight <= firstNonWord) {
                 // loop until wordRight finds a non-word character.
                 if(wordRight == firstNonWord || String.valueOf(text.charAt(wordRight)).matches("\\W")) {
-                    for(String keyword : blueSyntax) {
-                        if(text.substring(wordLeft, wordRight).matches(keyword)) {
-                            setCharacterAttributes(wordLeft, wordRight - wordLeft, blueAttribute, false);
-                            break;
+                    try {
+                        Scanner keywordsScanner = new Scanner(keywordsFile);
+                        int currentLine = 1;
+                        while(keywordsScanner.hasNextLine()) {
+                            String[] keywords = keywordsScanner.nextLine().split(",");
+                            for(String keyword : keywords) {
+                                if(text.substring(wordLeft, wordRight).matches(keyword)) {
+                                    switch(currentLine) {
+                                        case 1:
+                                            setCharacterAttributes(wordLeft, wordRight - wordLeft, blueAttribute, false);
+                                            break;
+                                        case 2:
+                                            setCharacterAttributes(wordLeft, wordRight - wordLeft, greenAttribute, false);
+                                            break;
+                                        case 3:
+                                            setCharacterAttributes(wordLeft, wordRight - wordLeft, pinkAttribute, false);
+                                            break;
+                                    }
+                                    break;
+                                }
+                            }
+                            currentLine++;
                         }
-                    }
-                    for(String keyword : greenSyntax) {
-                        if(text.substring(wordLeft, wordRight).matches(keyword)) {
-                            setCharacterAttributes(wordLeft, wordRight - wordLeft, greenAttribute, false);
-                            break;
-                        }
-                    }
-                    for(String keyword : pinkSyntax) {
-                        if(text.substring(wordLeft, wordRight).matches(keyword)) {
-                            setCharacterAttributes(wordLeft, wordRight - wordLeft, pinkAttribute, false);
-                            break;
-                        }
+                    } catch(Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 wordRight++;

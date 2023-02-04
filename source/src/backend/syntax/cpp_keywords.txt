@@ -1,3 +1,3 @@
-int, char
-std
-return
+asm,auto,bool,char,class,const,consteval,constexpr,constinit,const_cast,double,dynamic_cast,enum,explicit,export,extern,false,float,friend,private,protected,public,inline,int,long,mutable,nullptr,namespace,register,reinterpret_cast,requires,short,signed,static,static_cast,template,this,thread_local,true,typedef,unsigned,virtual,void,volatile,wchar_t,struct,union
+char8_t,char16_t,char32_t,std,sizeof,0,1
+break,case,catch,continue,default,delete,do,else,for,goto,if,new,return,switch,synchronized,throw,try,using,while,main
