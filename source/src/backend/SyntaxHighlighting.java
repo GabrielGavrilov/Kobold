@@ -17,7 +17,7 @@ public class SyntaxHighlighting {
             super.insertString(offset, syntax, highlight);
 
             String text = getText(0, getLength());
-            File keywordsFile = new File("src/backend/syntax/cpp_keywords.txt");
+            File keywordsFile = new File("src/syntax/cpp_keywords.txt");
             int lastNonWord = findLastNonWordCharacter(text, offset);
             int firstNonWord = findFirstNonWordCharacter(text, offset + syntax.length());
             if(lastNonWord < 0)
