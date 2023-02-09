@@ -5,8 +5,7 @@ import java.awt.*;
 
 public class KoboldClient extends JFrame {
 
-    // PANEL IMPORTS
-    KoboldEditor editor = new KoboldEditor();
+    KoboldEditor cEditor = new KoboldEditor();
 
     /**
      *  Initiates an empty Kobold client.
@@ -17,8 +16,10 @@ public class KoboldClient extends JFrame {
         this.setTitle("Kobold IDE");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // ADDING
-        this.add(editor, BorderLayout.CENTER);
+        /*
+            FRAME ADDING
+         */
+        this.add(cEditor, BorderLayout.CENTER);
 
         this.setVisible(true);
     }

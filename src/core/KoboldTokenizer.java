@@ -6,15 +6,28 @@ import javax.swing.text.BadLocationException;
 
 public class KoboldTokenizer {
 
-    private KoboldEditor koboldEditor;
+    /*
+        The Kobold Tokenizer is mainly used for writing text to the editor.
+        The reason why we use a tokenizer and not just write directly to the editor is because without it,
+        the syntax won't be highlighted when a file is opened.
+
+        Hopefully in the future we could implement this class with the syntax highlighter.
+     */
 
     private String source;
     private char currentChar;
     private int currentPos;
     private String temp;
 
+    // "list" of special characters kobold renders when it opens a file.
     private String specialChars = "!@#$%^&*()_+{}|:<>?-=[]\\',./\"";
 
+    /**
+     *  Initiates the tokenizer.
+     *
+     *  @param input The string which the tokenizer will tokenize.
+     *  @throws BadLocationException
+     */
     public void tokenize(String input) throws BadLocationException {
         this.source = input + "\n";
         this.currentPos = -1;
@@ -22,6 +35,9 @@ public class KoboldTokenizer {
         tokenize();
     }
 
+    /**
+     *  Advances the current character of the string.
+     */
     private void advanceCharacter() {
         this.currentPos++;
 
@@ -31,6 +47,11 @@ public class KoboldTokenizer {
             this.currentChar = this.source.charAt(currentPos);
     }
 
+    /**
+     *  Returns the next character of the string.
+     *
+     *  @return char this.source.charAt(currentPos + 1)
+     */
     private char peekCharacter() {
         if(this.currentPos + 1 >= this.source.length())
             return '\0';
@@ -38,6 +59,11 @@ public class KoboldTokenizer {
         return this.source.charAt(currentPos + 1);
     }
 
+    /**
+     *  Tokenizes the current character by checking if the current character equals to a "token".
+     *
+     * @throws BadLocationException
+     */
     private void tokenize() throws BadLocationException {
         while(this.currentChar != '\0') {
             if(this.currentChar == ' ') {
@@ -83,9 +109,15 @@ public class KoboldTokenizer {
         }
     }
 
+    /**
+     *  Writes the current string to the Kobold editor.
+     *
+     *  @param str The string which to write to the editor.
+     *  @throws BadLocationException
+     */
     private void writeToEditor(String str) throws BadLocationException {
-        int offset = koboldEditor.editor.getDocument().getEndPosition().getOffset() - 1;
-        koboldEditor.editor.getDocument().insertString(offset, str, null);
+        int offset = KoboldEditor.editor.getDocument().getEndPosition().getOffset() - 1;
+        KoboldEditor.editor.getDocument().insertString(offset, str, null);
     }
 
 }

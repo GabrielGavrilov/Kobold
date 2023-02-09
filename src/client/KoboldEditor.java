@@ -8,7 +8,9 @@ import java.io.File;
 
 public class KoboldEditor extends JPanel {
 
-    // GLOBAL CLASS COMPONENTS
+    /*
+        GLOBAL CLASS COMPONENTS
+     */
     public static JTextPane editor = new JTextPane();
 
     /**
@@ -18,11 +20,15 @@ public class KoboldEditor extends JPanel {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
 
-        // COMPONENT IMPORTS
-        KoboldLines lines = new KoboldLines();
-        KoboldEditorSyntaxHighlighting syntax = new KoboldEditorSyntaxHighlighting();
+        /*
+            COMPONENT IMPORTS
+         */
+        KoboldLines cLines = new KoboldLines();
+        KoboldEditorSyntaxHighlighting cSyntax = new KoboldEditorSyntaxHighlighting();
 
-        // FONT SETTINGS
+        /*
+            FONT SETTINGS
+         */
         Font DejaVu = null;
 
         try {
@@ -35,8 +41,10 @@ public class KoboldEditor extends JPanel {
             e.printStackTrace();
         }
 
-        // TEXT PANE SETTINGS
-        editor = new JTextPane(syntax.styleDocument);
+        /*
+            TEXT PANE SETTINGS
+         */
+        editor = new JTextPane(cSyntax.styleDocument);
         editor.setBounds(50, 0, 450, 500);
         editor.setFont(DejaVu);
         editor.setBackground(new Color(43,43,43,255));
@@ -44,21 +52,23 @@ public class KoboldEditor extends JPanel {
         editor.setMargin(new Insets(3, 5, 0, 0));
         editor.setCaretColor(Color.WHITE);
 
-        // PANEL SETTINGS
-        JPanel linesContents = new JPanel();
-        linesContents.setLayout(new BorderLayout());
-        linesContents.add(lines, BorderLayout.CENTER);
-
+        /*
+            PANEL SETTINGS
+         */
         JPanel editorContents = new JPanel();
         editorContents.setLayout(new BorderLayout());
-        editorContents.add(linesContents, BorderLayout.WEST);
+        editorContents.add(cLines, BorderLayout.WEST);
         editorContents.add(editor, BorderLayout.CENTER);
 
-        // SCROLL PANE SETTINGS
+        /*
+            SCROLL PANE SETTINGS
+         */
         JScrollPane editorScrollPane = new JScrollPane(editorContents);
         editorScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
-        // ADDING
+        /*
+            PANEL ADDING
+         */
         this.add(editorScrollPane, BorderLayout.CENTER);
 
     }
