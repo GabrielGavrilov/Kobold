@@ -1,12 +1,12 @@
 package core;
 
-import client.panels.Editor;
+import client.KoboldEditor;
 
 import javax.swing.text.BadLocationException;
 
-public class Tokenizer {
+public class KoboldTokenizer {
 
-    private Editor koboldEditor;
+    private KoboldEditor koboldEditor;
 
     private String source;
     private char currentChar;

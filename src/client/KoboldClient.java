@@ -1,26 +1,17 @@
-package client.frames;
-
-import core.Tokenizer;
-import client.panels.Editor;
+package client;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 import java.awt.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
-public class Kobold extends JFrame {
+public class KoboldClient extends JFrame {
 
     // PANEL IMPORTS
-    Editor editor = new Editor();
+    KoboldEditor editor = new KoboldEditor();
 
     /**
      *  Initiates an empty Kobold client.
      */
-    public Kobold() {
+    public KoboldClient() {
         this.setLayout(new BorderLayout());
         this.setSize(600, 600);
         this.setTitle("Kobold IDE");

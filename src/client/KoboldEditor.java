@@ -1,37 +1,33 @@
-package client.panels;
+package client;
 
-import core.SyntaxHighlighting;
-import client.frames.Kobold;
+import core.KoboldEditorSyntaxHighlighting;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.IOException;
 
-public class Editor extends JPanel {
+public class KoboldEditor extends JPanel {
 
     // GLOBAL CLASS COMPONENTS
-    public JTextPane editor = new JTextPane();
+    public static JTextPane editor = new JTextPane();
 
     /**
      *  Initiates the editor.
      */
-    public Editor() {
+    public KoboldEditor() {
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
 
         // COMPONENT IMPORTS
-        Lines lines = new Lines();
-        SyntaxHighlighting syntax = new SyntaxHighlighting();
+        KoboldLines lines = new KoboldLines();
+        KoboldEditorSyntaxHighlighting syntax = new KoboldEditorSyntaxHighlighting();
 
         // FONT SETTINGS
         Font DejaVu = null;
 
         try {
 
-            DejaVu = Font.createFont(Font.PLAIN, new File("src/fonts/DejaVuSansMono.ttf")).deriveFont(15f);
+            DejaVu = Font.createFont(Font.PLAIN, new File("fonts/DejaVuSansMono.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(DejaVu);
 

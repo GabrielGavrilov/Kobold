@@ -1,10 +1,7 @@
-package client.panels;
+package client;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.Utilities;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,19 +9,18 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Lines extends JPanel {
+public class KoboldLines extends JPanel {
 
-    private Editor koboldEditor;
     ArrayList<JLabel> lines = new ArrayList<>();
     Font DejaVu;
 
-    public Lines() {
+    public KoboldLines() {
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(50, 500));
         this.setBackground(new Color(43,43,43,255));
 
         try {
-            DejaVu = Font.createFont(Font.PLAIN, new File("src/fonts/DejaVuSansMono.ttf")).deriveFont(15f);
+            DejaVu = Font.createFont(Font.PLAIN, new File("fonts/DejaVuSansMono.ttf")).deriveFont(15f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(DejaVu);
         } catch(IOException e) {
@@ -53,7 +49,7 @@ public class Lines extends JPanel {
 
 
     private int getLineCount() {
-        int lineCount = koboldEditor.editor.getText().split("\n").length;
+        int lineCount = KoboldEditor.editor.getText().split("\n").length;
         return lineCount;
     }
 
