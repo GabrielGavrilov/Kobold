@@ -1,10 +1,12 @@
 package client;
 
+import core.KoboldSettings;
 import core.KoboldTokenizer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 public class KoboldClient extends JFrame {
@@ -43,6 +45,21 @@ public class KoboldClient extends JFrame {
                 tokenizer.tokenize(line);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *  Saves the current Kobold editor text to the file we're working with.
+     */
+    public static void save() {
+        try {
+            FileWriter fileWriter = new FileWriter(KoboldSettings.getCurrentFile());
+            fileWriter.write(KoboldEditor.editor.getText());
+
+            fileWriter.close();
+
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

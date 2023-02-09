@@ -11,12 +11,11 @@ public class Kobold {
 
         else {
             String file = args[0];
-            KoboldSettings settings = new KoboldSettings();
             KoboldClient client = new KoboldClient();
 
-            settings.setCurrentFile(file);
+            KoboldSettings.setCurrentFile(file);
 
-            client.open(settings.getCurrentFile());
+            client.open(KoboldSettings.getCurrentFile());
         }
 
     }

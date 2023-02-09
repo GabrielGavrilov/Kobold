@@ -4,9 +4,11 @@ import core.KoboldEditorSyntaxHighlighting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 
-public class KoboldEditor extends JPanel {
+public class KoboldEditor extends JPanel implements KeyListener {
 
     /*
         GLOBAL CLASS COMPONENTS
@@ -51,6 +53,7 @@ public class KoboldEditor extends JPanel {
         editor.setForeground(new Color(203,216,228,255));
         editor.setMargin(new Insets(3, 5, 0, 0));
         editor.setCaretColor(Color.WHITE);
+        editor.addKeyListener(this);
 
         /*
             PANEL SETTINGS
@@ -73,4 +76,21 @@ public class KoboldEditor extends JPanel {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        if(keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_S) {
+            KoboldClient.save();
+            System.out.println("File saved.");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
+    }
 }
