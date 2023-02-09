@@ -11,7 +11,7 @@ public class KoboldSettings {
      *
      *  @param fileToWorkWith Name of the file we're currently working with.
      */
-    private void setCurrentFile(String fileToWorkWith) {
+    public void setCurrentFile(String fileToWorkWith) {
         this.fileCurrentlyEditing = new File(fileToWorkWith);
     }
 
@@ -20,7 +20,7 @@ public class KoboldSettings {
      *
      *  @return this.fileCurrentlyEditing
      */
-    private File getCurrentFile() {
+    public File getCurrentFile() {
         return this.fileCurrentlyEditing;
     }
 

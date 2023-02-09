@@ -1,7 +1,11 @@
 package client;
 
+import core.KoboldTokenizer;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.util.Scanner;
 
 public class KoboldClient extends JFrame {
 
@@ -29,8 +33,18 @@ public class KoboldClient extends JFrame {
      *
      *  @param file The file Kobold will open.
      */
-    public void open(String file) {
+    public void open(File file) {
+        try {
+            KoboldTokenizer tokenizer = new KoboldTokenizer();
+            Scanner fileScanner = new Scanner(file);
 
+            while(fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
+                tokenizer.tokenize(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
