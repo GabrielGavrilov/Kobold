@@ -1,53 +1,44 @@
 package client.frames;
 
-import backend.Tokenizer;
+import core.Tokenizer;
 import client.panels.Editor;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Kobold extends JFrame {
 
-    /*
-        IMPORT PANELS
-     */
-
+    // PANEL IMPORTS
     Editor editor = new Editor();
 
+    /**
+     *  Initiates an empty Kobold client.
+     */
     public Kobold() {
         this.setLayout(new BorderLayout());
         this.setSize(600, 600);
         this.setTitle("Kobold IDE");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*
-            ADDING
-         */
-
+        // ADDING
         this.add(editor, BorderLayout.CENTER);
 
         this.setVisible(true);
     }
 
+    /**
+     *  Opens a file inside Kobold's client.
+     *
+     *  @param file The file Kobold will open.
+     */
     public void open(String file) {
-        File fileToWrite = new File(file);
 
-        try {
-            Scanner fileScanner = new Scanner(fileToWrite);
-            Tokenizer line = new Tokenizer();
-            while (fileScanner.hasNextLine()) {
-                line.tokenize(fileScanner.nextLine());
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (BadLocationException e) {
-            throw new RuntimeException(e);
-        }
     }
+
 }

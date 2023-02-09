@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Lines extends JPanel {
 
+    private Editor koboldEditor;
     ArrayList<JLabel> lines = new ArrayList<>();
     Font DejaVu;
 
@@ -52,19 +53,7 @@ public class Lines extends JPanel {
 
 
     private int getLineCount() {
-//        int totalChars = Editor.editorBox.getText().length();
-//        int lineCount = (totalChars == 0) ? 1: 0;
-//
-//        try {
-//            int offset = totalChars;
-//            while(offset > 0) {
-//                offset = Utilities.getRowStart(Editor.editorBox, offset) - 1;
-//                lineCount++;
-//            }
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-        int lineCount = Editor.editorBox.getText().split("\n").length;
+        int lineCount = koboldEditor.editor.getText().split("\n").length;
         return lineCount;
     }
 

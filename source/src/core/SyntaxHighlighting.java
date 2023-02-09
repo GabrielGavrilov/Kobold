@@ -1,11 +1,9 @@
-package backend;
+package core;
 
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class SyntaxHighlighting {
 

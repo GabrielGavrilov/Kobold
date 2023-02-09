@@ -1,11 +1,12 @@
-package backend;
+package core;
 
 import client.panels.Editor;
 
-import javax.swing.*;
 import javax.swing.text.BadLocationException;
 
 public class Tokenizer {
+
+    private Editor koboldEditor;
 
     private String source;
     private char currentChar;
@@ -83,8 +84,8 @@ public class Tokenizer {
     }
 
     private void writeToEditor(String str) throws BadLocationException {
-        int offset = Editor.editorBox.getDocument().getEndPosition().getOffset() - 1;
-        Editor.editorBox.getDocument().insertString(offset, str, null);
+        int offset = koboldEditor.editor.getDocument().getEndPosition().getOffset() - 1;
+        koboldEditor.editor.getDocument().insertString(offset, str, null);
     }
 
 }
