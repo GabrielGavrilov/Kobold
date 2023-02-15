@@ -1,0 +1,3 @@
+- Rewrite the syntax highlighter with a better tokenizer
+- Add macros the right way
+- Koblold UI settings 
