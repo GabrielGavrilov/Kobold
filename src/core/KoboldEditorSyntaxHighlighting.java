@@ -3,6 +3,8 @@ package core;
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KoboldEditorSyntaxHighlighting {
@@ -11,83 +13,92 @@ public class KoboldEditorSyntaxHighlighting {
     public static AttributeSet attribute;
 
     public DefaultStyledDocument styleDocument = new DefaultStyledDocument() {
+
+        int currentPosition;
+        char currentChar;
+        String source;
+
         public void insertString(int offset, String syntax, AttributeSet highlight) throws BadLocationException {
             super.insertString(offset, syntax, highlight);
 
-            String text = getText(0, getLength());
-            File keywordsFile = new File("syntax/cpp_keywords.txt");
-            int lastNonWord = findLastNonWordCharacter(text, offset);
-            int firstNonWord = findFirstNonWordCharacter(text, offset + syntax.length());
-            if(lastNonWord < 0)
-                lastNonWord = 0;
-            int wordLeft = lastNonWord;
-            int wordRight = lastNonWord;
+            String rawText = getText(0, getLength());
 
-            while(wordRight <= firstNonWord) {
-                // loop until wordRight finds a non-word character.
-                if(wordRight == firstNonWord || String.valueOf(text.charAt(wordRight)).matches("\\W")) {
-                    try {
-                        Scanner keywordsScanner = new Scanner(keywordsFile);
-                        while(keywordsScanner.hasNext()) {
-                            String currentKeyword = keywordsScanner.next();
+            tokenize(rawText);
+        }
 
-                            String keyword = currentKeyword.split("=")[0];
-                            String colour = currentKeyword.split("=")[1].toLowerCase();
+        private void tokenize(String rawText) {
+            source = rawText + "\n";
+            currentPosition = -1;
+            advanceCharacter();
+            tokenizeRawSource();
+        }
 
-                            if(text.substring(wordLeft, wordRight).matches(keyword) && colour.equals("blue")) {
-                                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
-                                setCharacterAttributes(wordLeft, wordRight - wordLeft, attribute, false);
-                                break;
-                            }
-                            else if(text.substring(wordLeft, wordRight).matches(keyword) && colour.equals("green")) {
-                                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
-                                setCharacterAttributes(wordLeft, wordRight - wordLeft, attribute, false);
-                                break;
-                            }
-                            else if(text.substring(wordLeft, wordRight).matches(keyword) && colour.equals("pink")) {
-                                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
-                                setCharacterAttributes(wordLeft, wordRight - wordLeft, attribute, false);
-                                break;
-                            }
-                            else {
-                                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
-                                setCharacterAttributes(wordLeft, wordRight - wordLeft, attribute, false);
-                            }
+        private void advanceCharacter() {
+            currentPosition++;
 
+            if(currentPosition >= source.length())
+                currentChar = '\0';
+
+            else
+                currentChar = source.charAt(currentPosition);
+        }
+
+        private char peekCharacter() {
+            if(currentPosition + 1 >= source.length())
+                return '\0';
+
+            return source.charAt(currentPosition + 1);
+        }
+
+        private void tokenizeRawSource() {
+            while(currentChar != '\0') {
+
+                if(currentChar == '/') {
+                    char temp = peekCharacter();
+                    if(temp == '/') {
+                        int starPosition = currentPosition;
+                        while(peekCharacter() != '\n') {
+                            advanceCharacter();
                         }
 
-                    } catch(Exception e) {
-                        e.printStackTrace();
+                        highlightComment(starPosition, currentPosition+1);
                     }
                 }
-                wordRight++;
+
+                else if(currentChar == '(' || currentChar == ')') {
+                    highlightSymbol(currentPosition);
+                }
+
+                else if(currentChar == '{' || currentChar == '}') {
+                    highlightSymbol(currentPosition);
+                }
+
+                else if(Character.isDigit(currentChar)) {
+                    highlightDigit(currentPosition);
+                }
+
+                advanceCharacter();
             }
         }
+
+        private void highlightComment(int startPosition, int endPosition) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(88,152,75,255));
+            setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
+        }
+
+        private void highlightSymbol(int symbolPosition) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(236,216,41,255));
+            setCharacterAttributes(symbolPosition, 1, attribute, false);
+        }
+
+        private void highlightDigit(int symbolPosition) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
+            setCharacterAttributes(symbolPosition, 1, attribute, false);
+        }
+
+        private void highlightSyntax() {
+
+        }
+
     };
-
-    private int findFirstNonWordCharacter(String text, int index) {
-        // loops until index matches with a non-word character
-        while(index < text.length()) {
-            if(String.valueOf(text.charAt(index)).matches("\\W")) {
-                break;
-            }
-            index++;
-        }
-        // return new index
-        return index;
-    }
-
-    private int findLastNonWordCharacter(String text, int index) {
-        // loops until the index matches with a non-word character
-        while(index >= 0) {
-            if(String.valueOf(text.charAt(index)).matches("\\W")) {
-                break;
-            }
-            index--;
-        }
-        // return new index
-        return index + 1;
-    }
-
-
 }
