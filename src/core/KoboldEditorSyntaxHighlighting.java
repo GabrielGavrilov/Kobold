@@ -96,8 +96,46 @@ public class KoboldEditorSyntaxHighlighting {
                     highlightDigit(currentPosition);
                 }
 
+                else if(Character.isAlphabetic(currentChar)) {
+                    int startPosition = currentPosition;
+                    String temp = "";
+                    while(Character.isAlphabetic(peekCharacter())) {
+                        temp += currentChar;
+                        advanceCharacter();
+                    }
+
+                    temp += currentChar;
+                    int colour = checkIfKeyword(temp);
+
+                    highlightSyntax(startPosition, currentPosition, colour);
+                }
+
                 advanceCharacter();
             }
+        }
+
+        private int checkIfKeyword(String word) {
+            try {
+                Scanner fileScanner = new Scanner(new File("syntax/cpp_keywords.txt"));
+
+                while(fileScanner.hasNext()) {
+                    String data = fileScanner.next();
+                    String[] keyword = data.split("=");
+                    if(word.equals(keyword[0])) {
+                        if(keyword[1].equals("blue"))
+                            return 1;
+                        if(keyword[1].equals("green"))
+                            return 2;
+                        if(keyword[1].equals("pink"))
+                            return 3;
+                    }
+                }
+
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            return 0;
         }
 
         private void highlightComment(int startPosition, int endPosition) {
@@ -115,7 +153,27 @@ public class KoboldEditorSyntaxHighlighting {
             setCharacterAttributes(symbolPosition, 1, attribute, false);
         }
 
-        private void highlightSyntax() {
+        private void highlightSyntax(int startPosition, int endPosition, int colour) {
+            if(colour == 0) {
+                System.out.println("null");
+            }
+
+            if(colour == 1) {
+                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
+                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+            }
+
+            if(colour == 2) {
+                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
+                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+            }
+
+            if(colour == 3) {
+                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
+                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+            }
+
+
 
         }
 

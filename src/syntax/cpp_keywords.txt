@@ -51,8 +51,6 @@ char16_t=green
 char32_t=green
 std=green
 sizeof=green
-0=green
-1=green
 
 break=pink
 case=pink
