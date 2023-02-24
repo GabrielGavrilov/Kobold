@@ -1,3 +1,3 @@
-- Fix the ugly syntax highlighter bug
+- Add a system to check programming language the user is written in
 - Add macros the right way
 - Add user settings for the Kobold UI
