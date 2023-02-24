@@ -65,6 +65,25 @@ public class KoboldEditorSyntaxHighlighting {
                     }
                 }
 
+                else if(currentChar == '\"') {
+                    int startPosition = currentPosition;
+                    int endPosition = startPosition;
+                    advanceCharacter();
+                    while(currentChar != '\"') {
+                        if(currentPosition <= source.length()) {
+                            advanceCharacter();
+                            endPosition++;
+                        }
+                        else {
+                            endPosition = startPosition;
+                            break;
+                        }
+                    }
+
+                    highlightComment(startPosition, endPosition + 2);
+
+                }
+
                 else if(currentChar == '(' || currentChar == ')') {
                     highlightSymbol(currentPosition);
                 }
@@ -73,7 +92,7 @@ public class KoboldEditorSyntaxHighlighting {
                     highlightSymbol(currentPosition);
                 }
 
-                else if(Character.isDigit(currentChar)) {
+                else if(currentChar == '0' || currentChar == '1') {
                     highlightDigit(currentPosition);
                 }
 
