@@ -80,7 +80,7 @@ public class KoboldEditorSyntaxHighlighting {
                         }
                     }
 
-                    highlightComment(startPosition, endPosition + 2);
+                    highlightString(startPosition, endPosition + 2);
 
                 }
 
@@ -143,6 +143,11 @@ public class KoboldEditorSyntaxHighlighting {
             setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
         }
 
+        private void highlightString(int startPosition, int endPosition) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(206,145,120,255));
+            setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
+        }
+
         private void highlightSymbol(int symbolPosition) {
             attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(236,216,41,255));
             setCharacterAttributes(symbolPosition, 1, attribute, false);
@@ -154,10 +159,6 @@ public class KoboldEditorSyntaxHighlighting {
         }
 
         private void highlightSyntax(int startPosition, int endPosition, int colour) {
-            if(colour == 0) {
-                System.out.println("null");
-            }
-
             if(colour == 1) {
                 attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
                 setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
