@@ -112,6 +112,10 @@ public class KoboldEditorSyntaxHighlighting {
                     highlightSyntax(startPosition, currentPosition, colour);
                 }
 
+                else {
+                    highlightSymbolOriginal(currentPosition);
+                }
+
                 advanceCharacter();
             }
         }
@@ -152,6 +156,11 @@ public class KoboldEditorSyntaxHighlighting {
 
         private void highlightSymbol(int symbolPosition) {
             attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(236,216,41,255));
+            setCharacterAttributes(symbolPosition, 1, attribute, false);
+        }
+
+        private void highlightSymbolOriginal(int symbolPosition) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
             setCharacterAttributes(symbolPosition, 1, attribute, false);
         }
 
