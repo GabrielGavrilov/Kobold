@@ -1,3 +1,3 @@
-- Rewrite the syntax highlighter with a better tokenizer
+- Fix the ugly syntax highlighter bug
 - Add macros the right way
 - Add user settings for the Kobold UI
