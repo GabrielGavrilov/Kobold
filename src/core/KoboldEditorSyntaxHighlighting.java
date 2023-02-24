@@ -63,7 +63,7 @@ public class KoboldEditorSyntaxHighlighting {
                             endPosition+=1;
                         }
 
-                        highlightComment(starPosition, endPosition+1);
+                        highlightWithEndPosition(starPosition, endPosition+1, new Color(88,152,75,255));
                     }
                 }
 
@@ -82,20 +82,20 @@ public class KoboldEditorSyntaxHighlighting {
                         }
                     }
 
-                    highlightString(startPosition, endPosition + 2);
+                    highlightWithEndPosition(startPosition, endPosition + 2, new Color(206,145,120,255));
 
                 }
 
                 else if(currentChar == '(' || currentChar == ')') {
-                    highlightSymbol(currentPosition);
+                    highlightSingle(currentPosition, new Color(236,216,41,255));
                 }
 
                 else if(currentChar == '{' || currentChar == '}') {
-                    highlightSymbol(currentPosition);
+                    highlightSingle(currentPosition, new Color(236,216,41,255));
                 }
 
                 else if(currentChar == '0' || currentChar == '1') {
-                    highlightDigit(currentPosition);
+                    highlightSingle(currentPosition, new Color(78,201,176,255));
                 }
 
                 else if(Character.isAlphabetic(currentChar)) {
@@ -109,11 +109,11 @@ public class KoboldEditorSyntaxHighlighting {
                     temp += currentChar;
                     int colour = checkIfKeyword(temp);
 
-                    highlightSyntax(startPosition, currentPosition, colour);
+                    highlightWord(startPosition, currentPosition, colour);
                 }
 
                 else {
-                    highlightSymbolOriginal(currentPosition);
+                    highlightSingle(currentPosition, new Color(203,216,228,255));
                 }
 
                 advanceCharacter();
@@ -128,12 +128,14 @@ public class KoboldEditorSyntaxHighlighting {
                     String data = fileScanner.next();
                     String[] keyword = data.split("=");
                     if(word.equals(keyword[0])) {
-                        if(keyword[1].equals("blue"))
-                            return 1;
-                        if(keyword[1].equals("green"))
-                            return 2;
-                        if(keyword[1].equals("pink"))
-                            return 3;
+                        switch(keyword[1]) {
+                            case "blue":
+                                return 1;
+                            case "green":
+                                return 2;
+                            case "pink":
+                                return 3;
+                        }
                     }
                 }
 
@@ -144,55 +146,47 @@ public class KoboldEditorSyntaxHighlighting {
             return 0;
         }
 
-        private void highlightComment(int startPosition, int endPosition) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(88,152,75,255));
+        private void highlightWithEndPosition(int startPosition, int endPosition, Color colour) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, colour);
             setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
         }
 
-        private void highlightString(int startPosition, int endPosition) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(206,145,120,255));
-            setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
-        }
-
-        private void highlightSymbol(int symbolPosition) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(236,216,41,255));
+        private void highlightSingle(int symbolPosition, Color colour) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, colour);
             setCharacterAttributes(symbolPosition, 1, attribute, false);
         }
 
-        private void highlightSymbolOriginal(int symbolPosition) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
-            setCharacterAttributes(symbolPosition, 1, attribute, false);
-        }
 
-        private void highlightDigit(int symbolPosition) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
-            setCharacterAttributes(symbolPosition, 1, attribute, false);
-        }
-
-        private void highlightSyntax(int startPosition, int endPosition, int colour) {
-            if(colour == 0) {
-                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
-                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+        private void highlightWord(int startPosition, int endPosition, int colour) {
+            switch(colour) {
+                case 1:
+                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
+                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+                    break;
+                case 2:
+                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
+                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+                    break;
+                case 3:
+                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
+                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+                    break;
+                default:
+                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
+                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+                    break;
             }
-
-            if(colour == 1) {
-                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
-                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-            }
-
-            if(colour == 2) {
-                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
-                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-            }
-
-            if(colour == 3) {
-                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
-                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-            }
-
-
-
         }
 
     };
 }
+
+// default = 203,216,228,255
+// blue = 84,156,214,255
+// green = 78,201,176,255
+// pink = 197,134,192,255
+
+// digit = 78,201,176,255
+// symbol = 236,216,41,255
+// string = 206,145,120,255
+// comment = 88,152,75,255
