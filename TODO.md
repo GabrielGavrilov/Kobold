@@ -1,3 +1,3 @@
-- Add a system to check programming language the user is written in
+- Add a system to check which programming language the user is writing in
 - Add macros the right way
 - Add user settings for the Kobold UI
