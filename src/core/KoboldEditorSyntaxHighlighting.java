@@ -57,11 +57,13 @@ public class KoboldEditorSyntaxHighlighting {
                     char temp = peekCharacter();
                     if(temp == '/') {
                         int starPosition = currentPosition;
+                        int endPosition = starPosition;
                         while(peekCharacter() != '\n') {
                             advanceCharacter();
+                            endPosition+=1;
                         }
 
-                        highlightComment(starPosition, currentPosition+1);
+                        highlightComment(starPosition, endPosition+1);
                     }
                 }
 
@@ -70,7 +72,7 @@ public class KoboldEditorSyntaxHighlighting {
                     int endPosition = startPosition;
                     advanceCharacter();
                     while(currentChar != '\"') {
-                        if(currentPosition <= source.length()) {
+                        if(currentPosition < source.length()) {
                             advanceCharacter();
                             endPosition++;
                         }
@@ -159,6 +161,11 @@ public class KoboldEditorSyntaxHighlighting {
         }
 
         private void highlightSyntax(int startPosition, int endPosition, int colour) {
+            if(colour == 0) {
+                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
+                setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
+            }
+
             if(colour == 1) {
                 attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
                 setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
