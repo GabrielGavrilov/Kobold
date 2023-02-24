@@ -36,7 +36,7 @@ public class KoboldTokenizer {
     }
 
     /**
-     *  Advances the current character of the string.
+     *  Advances the current character of the raw source.
      */
     private void advanceCharacter() {
         this.currentPos++;
@@ -48,9 +48,9 @@ public class KoboldTokenizer {
     }
 
     /**
-     *  Returns the next character of the string.
+     *  Returns the next character of the raw source.
      *
-     *  @return char this.source.charAt(currentPos + 1)
+     *  @return next character
      */
     private char peekCharacter() {
         if(this.currentPos + 1 >= this.source.length())
