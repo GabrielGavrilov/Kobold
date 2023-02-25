@@ -1,4 +1,3 @@
-- Add a system to check which programming language the user is writing in
 - Add syntax for C
 - Add syntax for JavScript
 - Add syntax for Python
