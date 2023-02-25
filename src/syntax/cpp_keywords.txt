@@ -71,4 +71,3 @@ throw=pink
 try=pink
 using=pink
 while=pink
-main=pink

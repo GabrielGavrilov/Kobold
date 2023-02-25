@@ -28,7 +28,13 @@ public class KoboldEditorSyntaxHighlighting {
         public void insertString(int offset, String syntax, AttributeSet highlight) throws BadLocationException {
             super.insertString(offset, syntax, highlight);
             String rawText = getText(0, getLength());
-            tokenize(rawText);
+
+            switch (KoboldSettings.getFileType()) {
+                case "cpp":
+                    tokenize(rawText);
+                    break;
+            }
+
         }
 
         /**
@@ -105,14 +111,6 @@ public class KoboldEditorSyntaxHighlighting {
 
                     highlightWithEndPosition(startPosition, endPosition + 2, new Color(206,145,120,255));
 
-                }
-
-                else if(currentChar == '(' || currentChar == ')') {
-                    highlightSingle(currentPosition, new Color(236,216,41,255));
-                }
-
-                else if(currentChar == '{' || currentChar == '}') {
-                    highlightSingle(currentPosition, new Color(236,216,41,255));
                 }
 
                 else if(currentChar == '0' || currentChar == '1') {
