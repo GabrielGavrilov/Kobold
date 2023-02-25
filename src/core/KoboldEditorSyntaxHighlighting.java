@@ -4,7 +4,6 @@ import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class KoboldEditorSyntaxHighlighting {
@@ -150,7 +149,11 @@ public class KoboldEditorSyntaxHighlighting {
          */
         private int checkIfKeyword(String keyword) {
             try {
-                Scanner fileScanner = new Scanner(new File("syntax/cpp_keywords.txt"));
+                Scanner fileScanner = new Scanner(new File("syntax/null_keywords.txt"));
+
+                if(KoboldSettings.getFileType().equals("cpp")) {
+                    fileScanner = new Scanner(new File("syntax/cpp_keywords.txt"));
+                }
 
                 while(fileScanner.hasNext()) {
                     String data = fileScanner.next();

@@ -24,4 +24,13 @@ public class KoboldSettings {
         return fileCurrentlyEditing;
     }
 
+    /**
+     *  Returns the file type of the currently open file.
+     *
+     * @return String
+     */
+    public static String getFileType() {
+        return fileCurrentlyEditing.getName().split("\\.")[1];
+    }
+
 }

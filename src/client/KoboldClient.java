@@ -44,6 +44,8 @@ public class KoboldClient extends JFrame {
                 String line = fileScanner.nextLine();
                 tokenizer.tokenize(line);
             }
+
+            this.setTitle(KoboldSettings.getCurrentFile().getName());
         } catch (Exception e) {
             e.printStackTrace();
         }
