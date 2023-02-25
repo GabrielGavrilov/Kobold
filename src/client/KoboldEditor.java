@@ -4,11 +4,14 @@ import core.KoboldEditorSyntaxHighlighting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 
-public class KoboldEditor extends JPanel implements KeyListener {
+public class KoboldEditor extends JPanel {
+
+    Action saveAction;
 
     /*
         GLOBAL CLASS COMPONENTS
@@ -53,7 +56,11 @@ public class KoboldEditor extends JPanel implements KeyListener {
         editor.setForeground(new Color(203,216,228,255));
         editor.setMargin(new Insets(3, 5, 0, 0));
         editor.setCaretColor(Color.WHITE);
-        editor.addKeyListener(this);
+
+        saveAction = new SaveAction();
+
+        editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "saveAction");
+        editor.getActionMap().put("saveAction", saveAction);
 
         /*
             PANEL SETTINGS
@@ -69,6 +76,8 @@ public class KoboldEditor extends JPanel implements KeyListener {
         JScrollPane editorScrollPane = new JScrollPane(editorContents);
         editorScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
+
+
         /*
             PANEL ADDING
          */
@@ -76,21 +85,13 @@ public class KoboldEditor extends JPanel implements KeyListener {
 
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
+    public class SaveAction extends AbstractAction {
 
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        if(keyEvent.isControlDown() && keyEvent.getKeyCode() == KeyEvent.VK_S) {
+        @Override
+        public void actionPerformed(ActionEvent actionEvent) {
             KoboldClient.save();
-            System.out.println("File saved.");
+            System.out.println("Saved.");
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 }
