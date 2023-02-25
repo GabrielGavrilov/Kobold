@@ -1,5 +1,4 @@
 - Add syntax for C
 - Add syntax for JavScript
 - Add syntax for Python
-- Add macros the right way
 - Add user settings for the Kobold UI
