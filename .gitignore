@@ -1,4 +1,8 @@
 src/*.iml
-src/out/*
+src/out/
 src/.idea/
-src/META-INF
+src/META-INF/
+jar/.idea/
+.idea/
+out/
+Kobold.iml
