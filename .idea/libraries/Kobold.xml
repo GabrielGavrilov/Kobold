@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Kobold">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/out/artifacts/Kobold_jar/Kobold.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

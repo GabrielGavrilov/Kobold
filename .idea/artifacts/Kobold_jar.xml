@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Kobold:jar">
+    <output-path>$PROJECT_DIR$/jar/</output-path>
+    <root id="archive" name="Kobold.jar">
+      <element id="module-output" name="Kobold" />
+    </root>
+  </artifact>
+</component>
