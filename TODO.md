@@ -1,4 +1,0 @@
-- Add syntax for C
-- Add syntax for JavScript
-- Add syntax for Python
-- Add user settings for the Kobold UI
