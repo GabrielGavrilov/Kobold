@@ -1,7 +1,6 @@
 package client;
 
 import core.KoboldSettings;
-import core.KoboldTokenizer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,12 +36,12 @@ public class KoboldClient extends JFrame {
      */
     public void open(File file) {
         try {
-            KoboldTokenizer tokenizer = new KoboldTokenizer();
             Scanner fileScanner = new Scanner(file);
 
             while(fileScanner.hasNextLine()) {
-                String line = fileScanner.nextLine();
-                tokenizer.tokenize(line);
+                String line = fileScanner.nextLine() + "\n";
+                int offset = KoboldEditor.editor.getDocument().getEndPosition().getOffset() - 1;
+                KoboldEditor.editor.getDocument().insertString(offset, line, null);
             }
 
             this.setTitle(KoboldSettings.getCurrentFile().getName());
