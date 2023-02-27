@@ -1,5 +1,7 @@
 package core;
 
+import client.KoboldEditor;
+
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
@@ -13,6 +15,7 @@ public class KoboldEditorSyntaxHighlighting {
 
     public DefaultStyledDocument styleDocument = new DefaultStyledDocument() {
 
+        String fileType;
         int currentPosition;
         char currentChar;
         String source;
@@ -43,6 +46,7 @@ public class KoboldEditorSyntaxHighlighting {
          * @param rawText String
          */
         private void tokenize(String rawText) {
+            fileType = KoboldSettings.getFileType();
             source = rawText + "\n";
             currentPosition = -1;
             advanceCharacter();
@@ -81,16 +85,18 @@ public class KoboldEditorSyntaxHighlighting {
             while(currentChar != '\0') {
 
                 if(currentChar == '/') {
-                    char temp = peekCharacter();
-                    if(temp == '/') {
-                        int starPosition = currentPosition;
-                        int endPosition = starPosition;
-                        while(peekCharacter() != '\n') {
-                            advanceCharacter();
-                            endPosition+=1;
-                        }
+                    if(fileType.equals("cpp")) {
+                        char temp = peekCharacter();
+                        if(temp == '/') {
+                            int starPosition = currentPosition;
+                            int endPosition = starPosition;
+                            while(peekCharacter() != '\n') {
+                                advanceCharacter();
+                                endPosition+=1;
+                            }
 
-                        highlightWithEndPosition(starPosition, endPosition+1, new Color(88,152,75,255));
+                            highlightWithEndPosition(starPosition, endPosition+1, new Color(88,152,75,255));
+                        }
                     }
                 }
 
@@ -111,6 +117,19 @@ public class KoboldEditorSyntaxHighlighting {
 
                     highlightWithEndPosition(startPosition, endPosition + 2, new Color(206,145,120,255));
 
+                }
+
+                else if(currentChar == '#') {
+                    if(fileType.equals("cpp")) {
+                        int startPosition = currentPosition;
+                        int endPosition = startPosition;
+                        while(peekCharacter() != '\n') {
+                            advanceCharacter();
+                            endPosition+=1;
+                        }
+
+                        highlightWithEndPosition(startPosition, endPosition + 1, new Color(197,134,192,255));
+                    }
                 }
 
                 else if(currentChar == '0' || currentChar == '1') {
