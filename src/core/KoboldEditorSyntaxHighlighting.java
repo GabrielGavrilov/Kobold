@@ -128,7 +128,7 @@ public class KoboldEditorSyntaxHighlighting {
                             endPosition+=1;
                         }
 
-                        highlightWithEndPosition(startPosition, endPosition + 1, new Color(197,134,192,255));
+                        highlightWithEndPosition(startPosition, endPosition + 1, new Color(96,99,102,255));
                     }
                 }
 
@@ -177,11 +177,11 @@ public class KoboldEditorSyntaxHighlighting {
                     String[] info = data.split("=");
                     if(keyword.equals(info[0])) {
                         switch(info[1]) {
-                            case "blue":
+                            case "COLOUR_ONE":
                                 return 1;
-                            case "green":
+                            case "COLOUR_TWO":
                                 return 2;
-                            case "pink":
+                            case "COLOUR_THREE":
                                 return 3;
                         }
                     }
