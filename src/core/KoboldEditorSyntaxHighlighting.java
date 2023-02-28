@@ -1,7 +1,5 @@
 package core;
 
-import client.KoboldEditor;
-
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
@@ -9,6 +7,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class KoboldEditorSyntaxHighlighting {
+
+    public enum Colours {
+        BLUE,
+        GREEN,
+        PINK,
+        PLAIN
+    }
 
     public static StyleContext context = StyleContext.getDefaultStyleContext();
     public static AttributeSet attribute;
@@ -145,7 +150,7 @@ public class KoboldEditorSyntaxHighlighting {
                     }
 
                     temp += currentChar;
-                    int colour = checkIfKeyword(temp);
+                    Colours colour = checkIfKeyword(temp);
 
                     highlightWord(startPosition, currentPosition, colour);
                 }
@@ -164,7 +169,7 @@ public class KoboldEditorSyntaxHighlighting {
          * @param keyword String
          * @return An integer based
          */
-        private int checkIfKeyword(String keyword) {
+        private Colours checkIfKeyword(String keyword) {
             try {
                 Scanner fileScanner = new Scanner(new File("syntax/null_keywords.txt"));
 
@@ -176,13 +181,13 @@ public class KoboldEditorSyntaxHighlighting {
                     String data = fileScanner.next();
                     String[] info = data.split("=");
                     if(keyword.equals(info[0])) {
-                        switch(info[1]) {
-                            case "COLOUR_ONE":
-                                return 1;
-                            case "COLOUR_TWO":
-                                return 2;
-                            case "COLOUR_THREE":
-                                return 3;
+                        switch(info[1].toLowerCase()) {
+                            case "blue":
+                                return Colours.BLUE;
+                            case "green":
+                                return Colours.GREEN;
+                            case "pink":
+                                return Colours.PINK;
                         }
                     }
                 }
@@ -191,7 +196,7 @@ public class KoboldEditorSyntaxHighlighting {
                 throw new RuntimeException(e);
             }
 
-            return 0;
+            return Colours.PLAIN;
         }
 
         /**
@@ -224,17 +229,17 @@ public class KoboldEditorSyntaxHighlighting {
          * @param endPosition int
          * @param colour int
          */
-        private void highlightWord(int startPosition, int endPosition, int colour) {
+        private void highlightWord(int startPosition, int endPosition, Colours colour) {
             switch(colour) {
-                case 1:
+                case BLUE:
                     attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
                     setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
                     break;
-                case 2:
+                case GREEN:
                     attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
                     setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
                     break;
-                case 3:
+                case PINK:
                     attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
                     setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
                     break;
