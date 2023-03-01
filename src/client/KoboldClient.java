@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class KoboldClient extends JFrame {
 
-    KoboldEditor cEditor = new KoboldEditor();
+    JTabbedPane koboldTabs = new JTabbedPane();
 
     /**
      *  Initiates an empty Kobold client.
@@ -24,7 +24,7 @@ public class KoboldClient extends JFrame {
         /*
             FRAME ADDING
          */
-        this.add(cEditor, BorderLayout.CENTER);
+        this.add(koboldTabs, BorderLayout.CENTER);
 
         this.setVisible(true);
     }
@@ -43,8 +43,7 @@ public class KoboldClient extends JFrame {
                 int offset = KoboldEditor.editor.getDocument().getEndPosition().getOffset() - 1;
                 KoboldEditor.editor.getDocument().insertString(offset, line, null);
             }
-
-            this.setTitle(KoboldSettings.getCurrentFile().getName());
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
