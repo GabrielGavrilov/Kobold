@@ -1,6 +1,7 @@
 package client;
 
 import core.KoboldColors;
+import core.KoboldSyntax;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -35,7 +36,7 @@ public class KoboldEditor extends JPanel {
 
         // creates the DejaVu font
         try {
-            dejaVu = Font.createFont(Font.PLAIN, new File("src/fonts/DejaVuSansMono.ttf")).deriveFont(15f);
+            dejaVu = Font.createFont(Font.PLAIN, new File("misc/DejaVuSansMono.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(dejaVu);
         } catch(Exception e) {
@@ -249,34 +250,19 @@ public class KoboldEditor extends JPanel {
         /**
          * Checks if the given string matches with a keyword.
          *
-         * @param keyword String
+         * @param value String
          * @return An integer based
          */
-        private KoboldColors.Color checkIfKeyword(String keyword) {
-            try {
-                Scanner fileScanner = new Scanner(new File("src/syntax/null_keywords.txt"));
-
-                if(this.fileType.equals("cpp")) {
-                    fileScanner = new Scanner(new File("src/syntax/cpp_keywords.txt"));
-                }
-
-                while(fileScanner.hasNext()) {
-                    String data = fileScanner.next();
-                    String[] info = data.split("=");
-                    if(keyword.equals(info[0])) {
-                        switch(info[1].toLowerCase()) {
-                            case "blue":
-                                return KoboldColors.Color.BLUE;
-                            case "green":
-                                return KoboldColors.Color.GREEN;
-                            case "pink":
-                                return KoboldColors.Color.PINK;
+        private KoboldColors.Color checkIfKeyword(String value) {
+            switch(fileType) {
+                case "cpp":
+                    for(KoboldSyntax.CPP keyword : KoboldSyntax.CPP.values()) {
+                        String key = keyword.toString().substring(1);
+                        if(value.equals(key)) {
+                            return keyword.getColor();
                         }
                     }
-                }
-
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                    break;
             }
 
             return KoboldColors.Color.DEFAULT;

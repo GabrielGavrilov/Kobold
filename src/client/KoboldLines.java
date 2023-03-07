@@ -3,7 +3,6 @@ package client;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,7 +32,7 @@ public class KoboldLines extends JPanel {
          */
         try {
 
-            DejaVu = Font.createFont(Font.PLAIN, new File("src/fonts/DejaVuSansMono.ttf")).deriveFont(15f);
+            DejaVu = Font.createFont(Font.PLAIN, new File("misc/DejaVuSansMono.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(DejaVu);
 

@@ -20,6 +20,8 @@ public class KoboldClient extends JFrame {
 
         this.add(koboldTabs, BorderLayout.CENTER);
 
+        koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "Welcome");
+
         openNewTab = new OpenNewTab();
 
         koboldTabs.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK), "openNewTab");

@@ -1,0 +1,4 @@
+Kobold V1.0.0
+
+Press "CTRL + P" to open a new tab.
+Press "CTRL + X" to close the current tab.
