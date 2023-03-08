@@ -1,12 +1,12 @@
 package client;
 
 import core.KoboldColors;
+import core.Old;
 import core.KoboldSyntax;
 
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,8 +50,8 @@ public class KoboldEditor extends JPanel {
          */
         editor = new JTextPane(styleDocument);
         editor.setFont(dejaVu);
-        editor.setBackground(new Color(43,43,43,255));
-        editor.setForeground(new Color(203,216,228,255));
+        editor.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
+        editor.setForeground(KoboldColors.Colors.LIGHT.getColorValue());
         editor.setMargin(new Insets(3, 5, 0, 0));
         editor.setCaretColor(Color.WHITE);
 
@@ -190,7 +190,7 @@ public class KoboldEditor extends JPanel {
                                 endPosition+=1;
                             }
 
-                            highlightWithEndPosition(starPosition, endPosition+1, new Color(88,152,75,255));
+                            highlightWithEndPosition(starPosition, endPosition+1, KoboldColors.Colors.GREEN.getColorValue());
                         }
                     }
                 }
@@ -210,7 +210,7 @@ public class KoboldEditor extends JPanel {
                         }
                     }
 
-                    highlightWithEndPosition(startPosition, endPosition + 2, new Color(206,145,120,255));
+                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.PEACH.getColorValue());
 
                 }
 
@@ -223,16 +223,13 @@ public class KoboldEditor extends JPanel {
                             endPosition+=1;
                         }
 
-                        highlightWithEndPosition(startPosition, endPosition + 1, new Color(96,99,102,255));
+                        highlightWithEndPosition(startPosition, endPosition + 1, KoboldColors.Colors.GRAY.getColorValue());
                     }
                 }
 
-                else if(currentChar == '(' || currentChar == ')' || currentChar == '{' || currentChar == '}') {
-                    highlightSingle(currentPosition, new Color(226,209,7,255));
-                }
 
                 else if(Character.isDigit(currentChar)) {
-                    highlightSingle(currentPosition, new Color(78,201,176,255));
+                    highlightSingle(currentPosition, KoboldColors.Colors.LIGHT_BLUE.getColorValue());
                 }
 
                 else if(Character.isAlphabetic(currentChar)) {
@@ -244,13 +241,13 @@ public class KoboldEditor extends JPanel {
                     }
 
                     temp += currentChar;
-                    KoboldColors.Color color = checkIfKeyword(temp);
+                    KoboldColors.Colors color = checkIfKeyword(temp);
 
-                    highlightWord(startPosition, currentPosition, color);
+                    highlightWord(startPosition, currentPosition, color.getColorValue());
                 }
 
                 else {
-                    highlightSingle(currentPosition, new Color(203,216,228,255));
+                    highlightSingle(currentPosition, KoboldColors.Colors.LIGHT.getColorValue());
                 }
 
                 advanceCharacter();
@@ -263,7 +260,7 @@ public class KoboldEditor extends JPanel {
          * @param value String
          * @return An integer based
          */
-        private KoboldColors.Color checkIfKeyword(String value) {
+        private KoboldColors.Colors checkIfKeyword(String value) {
             switch(fileType) {
                 case "cpp":
                     for(KoboldSyntax.CPP keyword : KoboldSyntax.CPP.values()) {
@@ -275,7 +272,7 @@ public class KoboldEditor extends JPanel {
                     break;
             }
 
-            return KoboldColors.Color.DEFAULT;
+            return KoboldColors.Colors.LIGHT;
         }
 
         /**
@@ -283,10 +280,10 @@ public class KoboldEditor extends JPanel {
          *
          * @param startPosition int
          * @param endPosition int
-         * @param colour Color
+         * @param color Color
          */
-        private void highlightWithEndPosition(int startPosition, int endPosition, Color colour) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, colour);
+        private void highlightWithEndPosition(int startPosition, int endPosition, Color color) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, color);
             setCharacterAttributes(startPosition, endPosition - startPosition, attribute, false);
         }
 
@@ -294,10 +291,10 @@ public class KoboldEditor extends JPanel {
          * Highlights a single character based on the colour.
          *
          * @param symbolPosition int
-         * @param colour Color
+         * @param color Color
          */
-        private void highlightSingle(int symbolPosition, Color colour) {
-            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, colour);
+        private void highlightSingle(int symbolPosition, Color color) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, color);
             setCharacterAttributes(symbolPosition, 1, attribute, false);
         }
 
@@ -308,25 +305,9 @@ public class KoboldEditor extends JPanel {
          * @param endPosition int
          * @param color int
          */
-        private void highlightWord(int startPosition, int endPosition, KoboldColors.Color color) {
-            switch(color) {
-                case BLUE:
-                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(84,156,214,255));
-                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-                    break;
-                case GREEN:
-                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(78,201,176,255));
-                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-                    break;
-                case PINK:
-                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(197,134,192,255));
-                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-                    break;
-                default:
-                    attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, new Color(203,216,228,255));
-                    setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
-                    break;
-            }
+        private void highlightWord(int startPosition, int endPosition, Color color ) {
+            attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, color);
+            setCharacterAttributes(startPosition, endPosition - startPosition + 1, attribute, false);
         }
 
     };

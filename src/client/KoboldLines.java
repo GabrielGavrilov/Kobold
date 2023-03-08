@@ -1,5 +1,7 @@
 package client;
 
+import core.KoboldColors;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -25,7 +27,7 @@ public class KoboldLines extends JPanel {
         this.koboldEditor = editor;
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(50, 500));
-        this.setBackground(new Color(43,43,43,255));
+        this.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
 
         /*
             FONT SETTINGS
@@ -68,7 +70,7 @@ public class KoboldLines extends JPanel {
         for(int i = 0; i < numberOfLines; i++) {
             JLabel line = new JLabel(Integer.toString(i + 1), SwingConstants.CENTER);
             line.setPreferredSize(new Dimension(50, 13));
-            line.setForeground(new Color(96,99,102,255));
+            line.setForeground(KoboldColors.Colors.GRAY.getColorValue());
             line.setFont(DejaVu);
             lines.add(line);
         }

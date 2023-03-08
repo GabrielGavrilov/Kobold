@@ -73,7 +73,8 @@ public class KoboldSyntax {
         _throw("pink"),
         _try("pink"),
         _using("pink"),
-        _while("pink");
+        _while("pink"),
+        ;
 
         private String color;
 
@@ -81,15 +82,15 @@ public class KoboldSyntax {
             this.color = color;
         }
 
-        public KoboldColors.Color getColor() {
+        public KoboldColors.Colors getColor() {
             if(this.color.equals("blue"))
-                return KoboldColors.Color.BLUE;
+                return KoboldColors.Colors.BLUE;
             else if(this.color.equals("green"))
-                return KoboldColors.Color.GREEN;
+                return KoboldColors.Colors.LIGHT_BLUE;
             else if(this.color.equals("pink"))
-                return KoboldColors.Color.PINK;
+                return KoboldColors.Colors.PINK;
 
-            return KoboldColors.Color.DEFAULT;
+            return KoboldColors.Colors.LIGHT;
         }
     }
 }
