@@ -6,6 +6,7 @@ import core.KoboldSyntax;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ public class KoboldEditor extends JPanel {
 
     // actions
     private Action openNewTab;
+    private Action closeCurrentTab;
 
     // private class variables
     private File fileEditing;
@@ -101,6 +103,10 @@ public class KoboldEditor extends JPanel {
         this.add(editorScrollPane, BorderLayout.CENTER);
 
     }
+
+    /*
+        SYNTAX HIGHLIGHTER
+     */
 
     /**
      * Initializes the syntax highlighter for the editor.
@@ -219,6 +225,10 @@ public class KoboldEditor extends JPanel {
 
                         highlightWithEndPosition(startPosition, endPosition + 1, new Color(96,99,102,255));
                     }
+                }
+
+                else if(currentChar == '(' || currentChar == ')' || currentChar == '{' || currentChar == '}') {
+                    highlightSingle(currentPosition, new Color(226,209,7,255));
                 }
 
                 else if(Character.isDigit(currentChar)) {

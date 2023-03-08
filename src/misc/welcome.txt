@@ -1,4 +1,9 @@
-Kobold V1.0.0
+Kobold - A lightweight macro-based IDE
 
-Press "CTRL + P" to open a new tab.
-Press "CTRL + X" to close the current tab.
+version 1.0.0
+by Gabriel Gavrilov
+Kobold is open source and freely distributable
+
+Press   "CTRL + P"      to open a new tab.
+Press   "CTRL + X"      to close the current tab.
+Press   "CTRL + S"      to save the current tab.

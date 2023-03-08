@@ -5,10 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 public class KoboldClient extends JFrame {
 
     private Action openNewTab;
+    private static ArrayList<String> filesOpen = new ArrayList<>();
 
     public static JTabbedPane koboldTabs = new JTabbedPane();
 
@@ -20,7 +22,8 @@ public class KoboldClient extends JFrame {
 
         this.add(koboldTabs, BorderLayout.CENTER);
 
-        koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "Welcome");
+        koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "welcome.txt");
+        filesOpen.add("welcome.txt");
 
         openNewTab = new OpenNewTab();
 
@@ -31,7 +34,6 @@ public class KoboldClient extends JFrame {
     }
 
     public static class OpenNewTab extends AbstractAction {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser fc = new JFileChooser();
@@ -39,6 +41,7 @@ public class KoboldClient extends JFrame {
             if(i == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
                 koboldTabs.add(new KoboldEditor(f), f.getName());
+                filesOpen.add(f.getName());
             }
         }
     }
