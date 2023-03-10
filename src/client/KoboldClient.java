@@ -1,6 +1,8 @@
 package client;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 public class KoboldClient extends JFrame {
 
     private Action openNewTab;
-    private static ArrayList<String> filesOpen = new ArrayList<>();
+    private static int currentTab;
 
     public static JTabbedPane koboldTabs = new JTabbedPane();
 
@@ -20,10 +22,28 @@ public class KoboldClient extends JFrame {
         this.setTitle("Kobold IDE");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        /*
+            JTABBEDPANE PROPERTIES
+         */
+
         this.add(koboldTabs, BorderLayout.CENTER);
 
+        ChangeListener tabListener = new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JTabbedPane source = (JTabbedPane) e.getSource();
+                currentTab = source.getSelectedIndex();
+            }
+        };
+
+        koboldTabs.addChangeListener(tabListener);
+
+        // adds the welcome file to the tabs upon initializing the koboldClient class
         koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "welcome.txt");
-        filesOpen.add("welcome.txt");
+
+        /*
+            ACTION MACROS
+         */
 
         openNewTab = new OpenNewTab();
 
@@ -41,8 +61,14 @@ public class KoboldClient extends JFrame {
             if(i == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
                 koboldTabs.add(new KoboldEditor(f), f.getName());
-                filesOpen.add(f.getName());
             }
+        }
+    }
+
+    public static class CloseCurrentTab extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            koboldTabs.remove(currentTab);
         }
     }
 

@@ -1,7 +1,6 @@
 package client;
 
 import core.KoboldColors;
-import core.Old;
 import core.KoboldSyntax;
 
 import javax.swing.*;
@@ -14,13 +13,8 @@ import java.util.Scanner;
 
 public class KoboldEditor extends JPanel {
 
-    // actions
-    private Action openNewTab;
-    private Action closeCurrentTab;
-
-    // private class variables
-    private File fileEditing;
-    private StyleContext context = StyleContext.getDefaultStyleContext();
+    private final File fileEditing;
+    private final StyleContext context = StyleContext.getDefaultStyleContext();
     private AttributeSet attribute;
 
     // public class variables
@@ -68,9 +62,7 @@ public class KoboldEditor extends JPanel {
                 editor.getDocument().insertString(offset, line, null);
             }
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (BadLocationException e) {
+        } catch (FileNotFoundException | BadLocationException e) {
             throw new RuntimeException(e);
         }
 
@@ -92,10 +84,15 @@ public class KoboldEditor extends JPanel {
         /*
             ACTION MACROS
          */
-        openNewTab = new KoboldClient.OpenNewTab();
+        // actions
+        Action openNewTab = new KoboldClient.OpenNewTab();
+        Action closeCurrentTab = new KoboldClient.CloseCurrentTab();
 
         editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK), "openNewTab");
         editor.getActionMap().put("openNewTab", openNewTab);
+
+        editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK), "closeCurrentTab");
+        editor.getActionMap().put("closeCurrentTab", closeCurrentTab);
 
         /*
             ADDING
