@@ -1,6 +1,9 @@
 package core;
 
 public class KoboldSyntax {
+    /**
+     * C++ Keywords
+     */
     public enum CPP {
         _asm("blue"),
         _auto("blue"),
@@ -76,12 +79,20 @@ public class KoboldSyntax {
         _while("pink"),
         ;
 
-        private String color;
+        private final String color;
 
+        /**
+         * Initializes the CPP enum with the color value.
+         * @param color Color
+         */
         CPP(String color) {
             this.color = color;
         }
 
+        /**
+         * Returns the color related to the keyword.
+         * @return KoboldColors.Colors
+         */
         public KoboldColors.Colors getColor() {
             if(this.color.equals("blue"))
                 return KoboldColors.Colors.BLUE;

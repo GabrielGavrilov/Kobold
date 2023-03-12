@@ -3,6 +3,9 @@ package core;
 import java.awt.*;
 
 public class KoboldColors {
+    /**
+     * Collection of colors that Kobold can use
+     */
     public enum Colors {
         BLACK(new Color(0, 0, 0, 255)),
         DARK_GRAY(new Color(43,43,43,255)),
@@ -16,12 +19,20 @@ public class KoboldColors {
         WHITE(new Color(255, 255, 255)),
         ;
 
-        private Color colorValue;
+        private final Color colorValue;
 
+        /**
+         * Initializes the color enum with the value.
+         * @param colorValue Color
+         */
         Colors(Color colorValue) {
             this.colorValue = colorValue;
         }
 
+        /**
+         * Returns the color related to the enum.
+         * @return Color
+         */
         public Color getColorValue() {
             return this.colorValue;
         }

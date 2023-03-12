@@ -12,13 +12,10 @@ import java.util.concurrent.TimeUnit;
 
 public class KoboldLines extends JPanel {
 
-    /*
-        GLOBAL CLASS COMPONENTS
-     */
+    // private class variables
     private ArrayList<JLabel> lines = new ArrayList<>();
     private Font DejaVu;
-
-    private KoboldEditor koboldEditor;
+    private final KoboldEditor koboldEditor;
 
     /**
      *  Initiates the lines for the editor.
@@ -29,15 +26,11 @@ public class KoboldLines extends JPanel {
         this.setPreferredSize(new Dimension(50, 500));
         this.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
 
-        /*
-            FONT SETTINGS
-         */
+        // creates the DejaVu font
         try {
-
             DejaVu = Font.createFont(Font.PLAIN, new File("misc/DejaVuSansMono.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(DejaVu);
-
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +44,6 @@ public class KoboldLines extends JPanel {
 
     /**
      *  Returns the current line count inside the KoboldEditor.
-     *
      *  @return int lineCount
      */
     private int getLineCount() {
@@ -61,7 +53,6 @@ public class KoboldLines extends JPanel {
 
     /**
      *  Generates an ArrayList of JLabels corresponding with the line count.
-     *
      *  @return ArrayList lines
      */
     private ArrayList<JLabel> generateLineList() {
@@ -79,7 +70,6 @@ public class KoboldLines extends JPanel {
 
     /**
      *  Renders the list of lines.
-     *
      *  @param lineList The ArrayList of JLabels that Kobold will render.
      */
     private void renderLines(ArrayList<JLabel> lineList) {
@@ -92,7 +82,6 @@ public class KoboldLines extends JPanel {
 
     /**
      *  Destroys the list of lines.
-     *
      *  @param lineList - The ArrayList of JLabels that Kobold will destroy.
      */
     private void destroyLines(ArrayList<JLabel> lineList) {

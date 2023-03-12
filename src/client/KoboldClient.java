@@ -11,11 +11,15 @@ import java.util.ArrayList;
 
 public class KoboldClient extends JFrame {
 
-    private Action openNewTab;
+    // private class variables
     private static int currentTab;
 
+    // public class variables
     public static JTabbedPane koboldTabs = new JTabbedPane();
 
+    /**
+     * Initializes the Kobold client.
+     */
     public KoboldClient() {
         this.setLayout(new BorderLayout());
         this.setSize(600, 600);
@@ -26,8 +30,6 @@ public class KoboldClient extends JFrame {
             JTABBEDPANE PROPERTIES
          */
 
-        this.add(koboldTabs, BorderLayout.CENTER);
-
         ChangeListener tabListener = new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
@@ -37,22 +39,29 @@ public class KoboldClient extends JFrame {
         };
 
         koboldTabs.addChangeListener(tabListener);
-
-        // adds the welcome file to the tabs upon initializing the koboldClient class
         koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "welcome.txt");
 
         /*
             ACTION MACROS
          */
 
-        openNewTab = new OpenNewTab();
+        Action openNewTab = new OpenNewTab();
 
         koboldTabs.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK), "openNewTab");
         koboldTabs.getActionMap().put("openNewTab", openNewTab);
 
+        /*
+            ADDING
+         */
+
+        this.add(koboldTabs, BorderLayout.CENTER);
+
         this.setVisible(true);
     }
 
+    /**
+     * Macro function for opening a new tab.
+     */
     public static class OpenNewTab extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -65,6 +74,9 @@ public class KoboldClient extends JFrame {
         }
     }
 
+    /**
+     * Macro function for closing the current tab.
+     */
     public static class CloseCurrentTab extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {

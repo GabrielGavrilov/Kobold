@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class KoboldEditor extends JPanel {
 
+    // private class variables
     private final File fileEditing;
     private final StyleContext context = StyleContext.getDefaultStyleContext();
     private AttributeSet attribute;
@@ -42,6 +43,7 @@ public class KoboldEditor extends JPanel {
         /*
             JTEXTPANE PROPERTIES
          */
+
         editor = new JTextPane(styleDocument);
         editor.setFont(dejaVu);
         editor.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
@@ -53,6 +55,7 @@ public class KoboldEditor extends JPanel {
             FILE SCANNER PROPERTIES
             (Used to open the file inside the editor.)
          */
+
         try {
             Scanner fileScanner = new Scanner(fileEditing);
 
@@ -69,6 +72,7 @@ public class KoboldEditor extends JPanel {
         /*
             PANEL PROPERTIES
          */
+
         KoboldLines lines = new KoboldLines(this);
         JPanel editorContents = new JPanel();
         editorContents.setLayout(new BorderLayout());
@@ -78,13 +82,14 @@ public class KoboldEditor extends JPanel {
         /*
             JSCROLLPANE PROPERTIES
          */
+
         JScrollPane editorScrollPane = new JScrollPane(editorContents);
         editorScrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         /*
             ACTION MACROS
          */
-        // actions
+
         Action openNewTab = new KoboldClient.OpenNewTab();
         Action closeCurrentTab = new KoboldClient.CloseCurrentTab();
 
@@ -117,7 +122,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Inserts a string to the Kobold Editor
-         *
          * @param offset int
          * @param syntax String
          * @param highlight AttributeSet
@@ -135,7 +139,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Initiates the tokenizer
-         *
          * @param rawText String
          */
         private void tokenize(String rawText) {
@@ -160,7 +163,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          *  Returns the next character of the raw source.
-         *
          *  @return next character
          */
         private char peekCharacter() {
@@ -253,7 +255,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Checks if the given string matches with a keyword.
-         *
          * @param value String
          * @return An integer based
          */
@@ -274,7 +275,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Highlights a selection based on the colour.
-         *
          * @param startPosition int
          * @param endPosition int
          * @param color Color
@@ -286,7 +286,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Highlights a single character based on the colour.
-         *
          * @param symbolPosition int
          * @param color Color
          */
@@ -297,7 +296,6 @@ public class KoboldEditor extends JPanel {
 
         /**
          * Highlights a word based on the colour.
-         *
          * @param startPosition int
          * @param endPosition int
          * @param color int
