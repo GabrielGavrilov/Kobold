@@ -139,6 +139,9 @@ public class KoboldEditor extends JPanel {
 
             if (getFileType().equals("cpp")) {
                 tokenize(rawText);
+            } else {
+                attribute = context.addAttribute(context.getEmptySet(), StyleConstants.Foreground, KoboldColors.Colors.WHITE.getColorValue());
+                setCharacterAttributes(0, rawText.length() + 1, attribute, false);
             }
 
         }
@@ -185,7 +188,7 @@ public class KoboldEditor extends JPanel {
             while(currentChar != '\0') {
 
                 if(currentChar == '/') {
-                    if(fileType.equals("cpp")) {
+                    if(fileType.equals("cpp") || fileType.equals("c")) {
                         char temp = peekCharacter();
                         if(temp == '/') {
                             int starPosition = currentPosition;
@@ -239,7 +242,7 @@ public class KoboldEditor extends JPanel {
                 }
 
                 else if(currentChar == '#') {
-                    if(fileType.equals("cpp")) {
+                    if(fileType.equals("cpp") || fileType.equals("c")) {
                         int startPosition = currentPosition;
                         int endPosition = startPosition;
                         while(peekCharacter() != '\n') {
@@ -286,6 +289,14 @@ public class KoboldEditor extends JPanel {
         private KoboldColors.Colors checkIfKeyword(String value) {
             switch(fileType) {
                 case "cpp":
+                    for(KoboldSyntax.CPP keyword : KoboldSyntax.CPP.values()) {
+                        String key = keyword.toString().substring(1);
+                        if(value.equals(key)) {
+                            return keyword.getColor();
+                        }
+                    }
+                    break;
+                case "c":
                     for(KoboldSyntax.CPP keyword : KoboldSyntax.CPP.values()) {
                         String key = keyword.toString().substring(1);
                         if(value.equals(key)) {
