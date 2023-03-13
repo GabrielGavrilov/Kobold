@@ -35,7 +35,7 @@ public class KoboldEditor extends JPanel {
 
         // creates the DejaVu font
         try {
-            dejaVu = Font.createFont(Font.PLAIN, new File("misc/DejaVuSansMono.ttf")).deriveFont(15f);
+            dejaVu = Font.createFont(Font.PLAIN, new File("misc/RobotoMono-Regular.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(dejaVu);
         } catch(Exception e) {
@@ -48,10 +48,10 @@ public class KoboldEditor extends JPanel {
 
         editor = new JTextPane(styleDocument);
         editor.setFont(dejaVu);
-        editor.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
-        editor.setForeground(KoboldColors.Colors.LIGHT.getColorValue());
+        editor.setBackground(KoboldColors.Colors.WHITE.getColorValue());
+        editor.setForeground(KoboldColors.Colors.BLACK.getColorValue());
         editor.setMargin(new Insets(3, 5, 0, 0));
-        editor.setCaretColor(Color.WHITE);
+        editor.setCaretColor(Color.BLACK);
 
         /*
             FILE SCANNER PROPERTIES
@@ -195,7 +195,7 @@ public class KoboldEditor extends JPanel {
                                 endPosition+=1;
                             }
 
-                            highlightWithEndPosition(starPosition, endPosition+1, KoboldColors.Colors.GREEN.getColorValue());
+                            highlightWithEndPosition(starPosition, endPosition+1, KoboldColors.Colors.BLUE.getColorValue());
                         }
                     }
                 }
@@ -215,7 +215,7 @@ public class KoboldEditor extends JPanel {
                         }
                     }
 
-                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.PEACH.getColorValue());
+                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.RED.getColorValue());
 
                 }
 
@@ -228,13 +228,13 @@ public class KoboldEditor extends JPanel {
                             endPosition+=1;
                         }
 
-                        highlightWithEndPosition(startPosition, endPosition + 1, KoboldColors.Colors.GRAY.getColorValue());
+                        highlightWithEndPosition(startPosition, endPosition + 1, KoboldColors.Colors.PURPLE.getColorValue());
                     }
                 }
 
 
                 else if(Character.isDigit(currentChar)) {
-                    highlightSingle(currentPosition, KoboldColors.Colors.LIGHT_BLUE.getColorValue());
+                    highlightSingle(currentPosition, KoboldColors.Colors.RED.getColorValue());
                 }
 
                 else if(Character.isAlphabetic(currentChar)) {
@@ -252,7 +252,7 @@ public class KoboldEditor extends JPanel {
                 }
 
                 else {
-                    highlightSingle(currentPosition, KoboldColors.Colors.LIGHT.getColorValue());
+                    highlightSingle(currentPosition, KoboldColors.Colors.BLACK.getColorValue());
                 }
 
                 advanceCharacter();
@@ -276,7 +276,7 @@ public class KoboldEditor extends JPanel {
                     break;
             }
 
-            return KoboldColors.Colors.LIGHT;
+            return KoboldColors.Colors.BLACK;
         }
 
         /**

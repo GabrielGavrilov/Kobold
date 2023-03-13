@@ -1,5 +1,7 @@
 package client;
 
+import core.KoboldColors;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -39,8 +41,9 @@ public class KoboldClient extends JFrame {
             }
         };
 
-        KoboldEditor welcome = new KoboldEditor(new File("misc/welcome.txt"));
         koboldTabs.addChangeListener(tabListener);
+
+        KoboldEditor welcome = new KoboldEditor(new File("misc/welcome.txt"));
         koboldTabs.add(welcome, "welcome.txt");
         editorsOpen.add(welcome);
 

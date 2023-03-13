@@ -95,13 +95,13 @@ public class KoboldSyntax {
          */
         public KoboldColors.Colors getColor() {
             if(this.color.equals("blue"))
-                return KoboldColors.Colors.BLUE;
+                return KoboldColors.Colors.TEAL_GREEN;
             else if(this.color.equals("green"))
                 return KoboldColors.Colors.LIGHT_BLUE;
             else if(this.color.equals("pink"))
-                return KoboldColors.Colors.PINK;
+                return KoboldColors.Colors.ORANGE;
 
-            return KoboldColors.Colors.LIGHT;
+            return KoboldColors.Colors.BLACK;
         }
     }
 }

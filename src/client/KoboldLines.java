@@ -24,11 +24,11 @@ public class KoboldLines extends JPanel {
         this.koboldEditor = editor;
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(50, 500));
-        this.setBackground(KoboldColors.Colors.DARK_GRAY.getColorValue());
+        this.setBackground(KoboldColors.Colors.WHITE.getColorValue());
 
         // creates the DejaVu font
         try {
-            DejaVu = Font.createFont(Font.PLAIN, new File("misc/DejaVuSansMono.ttf")).deriveFont(15f);
+            DejaVu = Font.createFont(Font.PLAIN, new File("misc/RobotoMono-Regular.ttf")).deriveFont(15f);
             GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
             environment.registerFont(DejaVu);
         } catch(Exception e) {
@@ -60,8 +60,8 @@ public class KoboldLines extends JPanel {
         ArrayList<JLabel> lines = new ArrayList<>();
         for(int i = 0; i < numberOfLines; i++) {
             JLabel line = new JLabel(Integer.toString(i + 1), SwingConstants.CENTER);
-            line.setPreferredSize(new Dimension(50, 13));
-            line.setForeground(KoboldColors.Colors.GRAY.getColorValue());
+            line.setPreferredSize(new Dimension(50, 16));
+            line.setForeground(KoboldColors.Colors.ORANGE.getColorValue());
             line.setFont(DejaVu);
             lines.add(line);
         }
