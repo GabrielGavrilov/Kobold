@@ -219,6 +219,25 @@ public class KoboldEditor extends JPanel {
 
                 }
 
+                else if(currentChar == '\'') {
+                    int startPosition = currentPosition;
+                    int endPosition = startPosition;
+                    advanceCharacter();
+                    while(currentChar != '\'') {
+                        if(currentPosition < source.length()) {
+                            advanceCharacter();
+                            endPosition++;
+                        }
+                        else {
+                            endPosition = startPosition;
+                            break;
+                        }
+                    }
+
+                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.LIGHT_GREEN.getColorValue());
+
+                }
+
                 else if(currentChar == '#') {
                     if(fileType.equals("cpp")) {
                         int startPosition = currentPosition;

@@ -72,7 +72,7 @@ public class KoboldClient extends JFrame {
     public static class OpenNewTab extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fc = new JFileChooser();
+            JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
             int i = fc.showDialog(koboldTabs, null);
             if(i == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
