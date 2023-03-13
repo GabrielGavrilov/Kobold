@@ -24,7 +24,7 @@ public class KoboldLines extends JPanel {
         this.koboldEditor = editor;
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(50, 500));
-        this.setBackground(KoboldColors.Colors.WHITE.getColorValue());
+        this.setBackground(KoboldColors.Colors.DARK.getColorValue());
 
         // creates the DejaVu font
         try {
@@ -61,8 +61,9 @@ public class KoboldLines extends JPanel {
         for(int i = 0; i < numberOfLines; i++) {
             JLabel line = new JLabel(Integer.toString(i + 1), SwingConstants.CENTER);
             line.setPreferredSize(new Dimension(50, 16));
-            line.setForeground(KoboldColors.Colors.ORANGE.getColorValue());
+            line.setForeground(KoboldColors.Colors.GREY.getColorValue());
             line.setFont(DejaVu);
+            line.setFocusable(true);
             lines.add(line);
         }
         return lines;

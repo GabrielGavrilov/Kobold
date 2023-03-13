@@ -52,12 +52,6 @@ public class KoboldSyntax {
         _struct("blue"),
         _union("blue"),
 
-        _char8_t("green"),
-        _char16_t("green"),
-        _char32_t("green"),
-        _std("green"),
-        _sizeof("green"),
-
         _break("pink"),
         _case("pink"),
         _catch("pink"),
@@ -95,13 +89,11 @@ public class KoboldSyntax {
          */
         public KoboldColors.Colors getColor() {
             if(this.color.equals("blue"))
-                return KoboldColors.Colors.TEAL_GREEN;
-            else if(this.color.equals("green"))
-                return KoboldColors.Colors.LIGHT_BLUE;
+                return KoboldColors.Colors.GREEN;
             else if(this.color.equals("pink"))
-                return KoboldColors.Colors.ORANGE;
+                return KoboldColors.Colors.RED;
 
-            return KoboldColors.Colors.BLACK;
+            return KoboldColors.Colors.WHITE;
         }
     }
 }

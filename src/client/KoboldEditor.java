@@ -48,10 +48,10 @@ public class KoboldEditor extends JPanel {
 
         editor = new JTextPane(styleDocument);
         editor.setFont(dejaVu);
-        editor.setBackground(KoboldColors.Colors.WHITE.getColorValue());
-        editor.setForeground(KoboldColors.Colors.BLACK.getColorValue());
+        editor.setBackground(KoboldColors.Colors.DARK.getColorValue());
+        editor.setForeground(KoboldColors.Colors.GREY.getColorValue());
         editor.setMargin(new Insets(3, 5, 0, 0));
-        editor.setCaretColor(Color.BLACK);
+        editor.setCaretColor(Color.WHITE);
 
         /*
             FILE SCANNER PROPERTIES
@@ -195,7 +195,7 @@ public class KoboldEditor extends JPanel {
                                 endPosition+=1;
                             }
 
-                            highlightWithEndPosition(starPosition, endPosition+1, KoboldColors.Colors.BLUE.getColorValue());
+                            highlightWithEndPosition(starPosition, endPosition+1, KoboldColors.Colors.GREY.getColorValue());
                         }
                     }
                 }
@@ -215,7 +215,7 @@ public class KoboldEditor extends JPanel {
                         }
                     }
 
-                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.RED.getColorValue());
+                    highlightWithEndPosition(startPosition, endPosition + 2, KoboldColors.Colors.LIGHT_GREEN.getColorValue());
 
                 }
 
@@ -228,13 +228,13 @@ public class KoboldEditor extends JPanel {
                             endPosition+=1;
                         }
 
-                        highlightWithEndPosition(startPosition, endPosition + 1, KoboldColors.Colors.PURPLE.getColorValue());
+                        highlightWithEndPosition(startPosition, endPosition + 1, KoboldColors.Colors.GREEN.getColorValue());
                     }
                 }
 
 
                 else if(Character.isDigit(currentChar)) {
-                    highlightSingle(currentPosition, KoboldColors.Colors.RED.getColorValue());
+                    highlightSingle(currentPosition, KoboldColors.Colors.PINK.getColorValue());
                 }
 
                 else if(Character.isAlphabetic(currentChar)) {
@@ -252,7 +252,7 @@ public class KoboldEditor extends JPanel {
                 }
 
                 else {
-                    highlightSingle(currentPosition, KoboldColors.Colors.BLACK.getColorValue());
+                    highlightSingle(currentPosition, KoboldColors.Colors.WHITE.getColorValue());
                 }
 
                 advanceCharacter();
@@ -276,7 +276,7 @@ public class KoboldEditor extends JPanel {
                     break;
             }
 
-            return KoboldColors.Colors.BLACK;
+            return KoboldColors.Colors.WHITE;
         }
 
         /**

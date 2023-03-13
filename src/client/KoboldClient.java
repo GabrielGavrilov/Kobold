@@ -5,6 +5,7 @@ import core.KoboldColors;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -44,7 +45,7 @@ public class KoboldClient extends JFrame {
         koboldTabs.addChangeListener(tabListener);
 
         KoboldEditor welcome = new KoboldEditor(new File("misc/welcome.txt"));
-        koboldTabs.add(welcome, "welcome.txt");
+        koboldTabs.add("welcome.txt",welcome);
         editorsOpen.add(welcome);
 
         /*
