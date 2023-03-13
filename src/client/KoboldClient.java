@@ -13,6 +13,7 @@ public class KoboldClient extends JFrame {
 
     // private class variables
     private static int currentTab;
+    private static final ArrayList<KoboldEditor> editorsOpen = new ArrayList<>();
 
     // public class variables
     public static JTabbedPane koboldTabs = new JTabbedPane();
@@ -38,8 +39,10 @@ public class KoboldClient extends JFrame {
             }
         };
 
+        KoboldEditor welcome = new KoboldEditor(new File("misc/welcome.txt"));
         koboldTabs.addChangeListener(tabListener);
-        koboldTabs.add(new KoboldEditor(new File("misc/welcome.txt")), "welcome.txt");
+        koboldTabs.add(welcome, "welcome.txt");
+        editorsOpen.add(welcome);
 
         /*
             ACTION MACROS
@@ -69,7 +72,9 @@ public class KoboldClient extends JFrame {
             int i = fc.showDialog(koboldTabs, null);
             if(i == JFileChooser.APPROVE_OPTION) {
                 File f = fc.getSelectedFile();
-                koboldTabs.add(new KoboldEditor(f), f.getName());
+                KoboldEditor editor = new KoboldEditor(f);
+                editorsOpen.add(editor);
+                koboldTabs.add(editor, f.getName());
             }
         }
     }
@@ -80,7 +85,16 @@ public class KoboldClient extends JFrame {
     public static class CloseCurrentTab extends AbstractAction {
         @Override
         public void actionPerformed(ActionEvent e) {
+            editorsOpen.remove(currentTab);
             koboldTabs.remove(currentTab);
+        }
+    }
+
+    public static class SaveCurrentTab extends AbstractAction {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            editorsOpen.get(currentTab).saveFile();
+            System.out.printf("Saved: %s\n", editorsOpen.get(currentTab).getFile().toString());
         }
     }
 

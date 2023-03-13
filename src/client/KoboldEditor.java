@@ -9,12 +9,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class KoboldEditor extends JPanel {
 
     // private class variables
-    private final File fileEditing;
+    private final File currentFileEditing;
     private final StyleContext context = StyleContext.getDefaultStyleContext();
     private AttributeSet attribute;
 
@@ -26,7 +28,7 @@ public class KoboldEditor extends JPanel {
      * @param file File
      */
     public KoboldEditor(File file) {
-        fileEditing = file;
+        currentFileEditing = file;
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
         Font dejaVu = null;
@@ -57,7 +59,7 @@ public class KoboldEditor extends JPanel {
          */
 
         try {
-            Scanner fileScanner = new Scanner(fileEditing);
+            Scanner fileScanner = new Scanner(currentFileEditing);
 
             while(fileScanner.hasNextLine()) {
                 String line = fileScanner.nextLine() + "\n";
@@ -92,12 +94,16 @@ public class KoboldEditor extends JPanel {
 
         Action openNewTab = new KoboldClient.OpenNewTab();
         Action closeCurrentTab = new KoboldClient.CloseCurrentTab();
+        Action saveCurrentTab = new KoboldClient.SaveCurrentTab();
 
         editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_P, KeyEvent.CTRL_DOWN_MASK), "openNewTab");
         editor.getActionMap().put("openNewTab", openNewTab);
 
         editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK), "closeCurrentTab");
         editor.getActionMap().put("closeCurrentTab", closeCurrentTab);
+
+        editor.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_S, KeyEvent.CTRL_DOWN_MASK), "saveCurrentTab");
+        editor.getActionMap().put("saveCurrentTab", saveCurrentTab);
 
         /*
             ADDING
@@ -312,7 +318,19 @@ public class KoboldEditor extends JPanel {
      * @return File
      */
     public File getFile() {
-        return this.fileEditing;
+        return this.currentFileEditing;
+    }
+
+    public void saveFile() {
+        try {
+            FileWriter fileWriter = new FileWriter(getFile());
+            fileWriter.write(editor.getText());
+
+            fileWriter.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -320,7 +338,7 @@ public class KoboldEditor extends JPanel {
      * @return String
      */
     public String getFileType() {
-        return this.fileEditing.getName().split("\\.")[1];
+        return this.currentFileEditing.getName().split("\\.")[1];
     }
 
 }
